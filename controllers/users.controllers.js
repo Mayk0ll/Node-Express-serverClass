@@ -18,8 +18,6 @@ const getUsers = async (req, res = response) => {
 }
 
 const getUser = (req, res = response) => {
-    
-
     console.log(req.query)
     res.json({data: 'get Hello World!'});
 }
@@ -45,7 +43,7 @@ const putUser = async (req = request, res = response) => {
 
         const user = await UserModel.findByIdAndUpdate(id, body)
 
-        res.json({data: user});
+        res.json({user});
     } catch (error) {
         console.log(error);
     }
@@ -54,11 +52,11 @@ const putUser = async (req = request, res = response) => {
 const deleteUser = async (req, res = response) => {
     try {
         const {id} = req.params;
-
+        const userAuth = req.userAuth;
         await UserModel.findByIdAndUpdate(id, {status: false});
-        res.json({data: 'delete Hello World!'});
+        res.json({id, userAuth});
     } catch (error) {
-        
+        console.log(error)
     }
 }
 
